@@ -1,10 +1,12 @@
 const express = require('express');
+const pool = require('./src/config/db');
 
 
 const app = express();
 
-app.get('/', (req, res) => {
-    res.send('Hello World!');
+app.get('/', async (req, res) => {
+    const result = await pool.query('SELECT * FROM users');
+    res.json(result.rows);
 });
 
 
