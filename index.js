@@ -1,13 +1,18 @@
 const express = require('express');
-const pool = require('./src/config/db');
+const bodyParser = require('body-parser');
+
+//Routes
+const usersRouter = require('./src/routes/users.routes');
+const {urlencoded} = require("express");
 
 
 const app = express();
 
-app.get('/', async (req, res) => {
-    const result = await pool.query('SELECT * FROM users');
-    res.json(result.rows);
-});
+//Middlewares
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.json());
+
+app.use('/users', usersRouter);
 
 
 app.listen(3000, () => {
