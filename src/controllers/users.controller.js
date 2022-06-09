@@ -1,7 +1,8 @@
 const pool = require('../config/db');
 const bcrypt = require('bcryptjs');
-
+const userModels = require('../models/userModel');
 const controllers = {};
+
 
 const getUsers = async (req, res) => {
     const result = await pool.query('SELECT * FROM users');
@@ -14,16 +15,13 @@ const getUser = async (req, res) => {
     res.status(200).json({message: 'User retrieved successfully', body: {user: result.rows[0]}});
 }
 
-const createUser = async (req, res) => {
-    const { name,last_name, email, password } = req.body;
-    const hash = bcrypt.hashSync(password, 10);
-    const result = await pool.query('INSERT INTO users (name,last_name, email, password) VALUES ($1, $2, $3, $4)', [name,last_name, email, hash]);
-    res.json({
-        message: 'User created successfully',
-        body: {
-            user: { name, email }
-        }
+const createUser = (req, res) => {
+    const { first_name,last_name, email, password } = req.body;
+    let result = userModels.registerUser({email, password, first_name, last_name}).then(result => {
+        res.json({message: 'User created successfully', body: {user: result}});
+
     });
+
 }
 
 const updateUser = async (req, res) => {
@@ -32,6 +30,33 @@ const updateUser = async (req, res) => {
     const hash = bcrypt.hashSync(password, 10);
     const result = await pool.query('UPDATE users SET name = $1, last_name = $2, email = $3, password = $4 WHERE id = $5', [name,last_name, email, hash, id]);
     res.json({ message: 'User updated successfully' });
+}
+
+const updatePassword = async (req, res) => {
+    const { email, password } = req.body;
+    const hash = bcrypt.hashSync(password, 10);
+    const result = userModels.updatePassword({email, password, hash}).then(result => {
+        res.cookie('auth_token',result.token).json({message: 'User updated successfully', body: {user: result}});
+
+    }
+    );
+}
+
+const loginUser = async (req, res) => {
+    const {email, password} = req.body;
+    const userPassword = userModels.loginUser({email, password}).then(
+        result => {
+            if (result) {
+                res.cookie('auth_token',result.token).json({message: 'User logged in successfully', body: {user: result}});
+            } else {
+                res.status(403).clearCookie('auth_token', { sameSite: 'none', secure: true }).json({message: 'User not found'});
+            }
+
+        }
+    );
+
+
+
 }
 
 const deleteUser = async (req, res) => {
@@ -60,5 +85,7 @@ controllers.updateUser = updateUser;
 controllers.deleteUser = deleteUser;
 controllers.getUserByEmail = getUserByEmail;
 controllers.getUserByNameAndLastName = getUserByNameAndLastName;
+controllers.updatePassword = updatePassword;
+controllers.loginUser = loginUser;
 
 module.exports = controllers;
