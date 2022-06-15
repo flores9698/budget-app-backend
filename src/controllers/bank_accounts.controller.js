@@ -10,9 +10,9 @@ const getBankAccounts = async (req, res) => {
 
 const getBankAccount = async (req, res) => {
     const { id } = req.params;
-    const result = await pool.query('SELECT * FROM bank_accounts WHERE id = $1', [id]);
-    res.status(200).json({message: 'Bank Account retrieved successfully', body: {bank_account: result.rows[0]}});
-
+    const query = `SELECT * FROM bank_accounts WHERE user_id = ${id}`;
+    const result = await pool.query(query);
+    res.status(200).json({message: 'User retrieved successfully', body: {user: result.rows}});
 }
 
 const createBankAccount = async (req, res) => {

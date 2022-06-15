@@ -29,7 +29,7 @@ const loginUser = async ({ email, password }) => {
             //update token
             const query = `UPDATE users SET token = md5(random()::text) WHERE email = '${email}'`;
             const result_token = await pool.query(query);
-            result = await pool.query('SELECT email,name,last_name FROM users WHERE email = $1', [email]);
+            result = await pool.query('SELECT token,email,name,last_name,id FROM users WHERE email = $1', [email]);
             return result.rows[0];
         }
 

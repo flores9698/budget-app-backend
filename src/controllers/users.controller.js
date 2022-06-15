@@ -12,7 +12,7 @@ const getUsers = async (req, res) => {
 const getUser = async (req, res) => {
     const { id } = req.params;
     const result = await pool.query('SELECT * FROM users WHERE id = $1', [id]);
-    res.status(200).json({message: 'User retrieved successfully', body: {user: result.rows[0]}});
+    res.status(200).json({message: 'User retrieved successfully', body: {user: result.rows}});
 }
 
 const createUser = (req, res) => {
@@ -56,6 +56,10 @@ const loginUser = async (req, res) => {
     );
 
 
+}
+
+const logOut = async (req, res) => {
+    res.clearCookie('auth_token', { sameSite: 'none', secure: true }).json({message: 'User logged out successfully'});
 
 }
 
@@ -87,5 +91,6 @@ controllers.getUserByEmail = getUserByEmail;
 controllers.getUserByNameAndLastName = getUserByNameAndLastName;
 controllers.updatePassword = updatePassword;
 controllers.loginUser = loginUser;
+// controllers.logOut = logOut;
 
 module.exports = controllers;
