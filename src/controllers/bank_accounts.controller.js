@@ -10,7 +10,10 @@ const getBankAccounts = async (req, res) => {
 
 const getBankAccount = async (req, res) => {
     const { id } = req.params;
-    const query = `SELECT * FROM bank_accounts WHERE user_id = ${id}`;
+    const query = `SELECT * FROM bank_accounts as bk 
+    inner join users as u
+    on bk.user_id = u.id
+    WHERE user_id = ${id}`;
     const result = await pool.query(query);
     res.status(200).json({message: 'User retrieved successfully', body: {user: result.rows}});
 }
