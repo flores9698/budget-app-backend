@@ -8,6 +8,7 @@ const usersRouter = require('./src/routes/users.routes');
 const banksRouter = require('./src/routes/bank.routes')
 const bankAccountsRouter = require('./src/routes/bank_accounts.routes');
 const expensesRouter = require('./src/routes/expenses.routes');
+const categoriesRouter = require('./src/routes/categories.routes');
 
 const {urlencoded} = require("express");
 
@@ -30,6 +31,7 @@ app.use('/users', usersRouter);
 app.use(guard);
 app.use('/bank_accounts', bankAccountsRouter);
 app.use('/banks', banksRouter);
+app.use('/categories', categoriesRouter);
 app.use('/expenses', expensesRouter);
 
 

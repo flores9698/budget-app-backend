@@ -5,7 +5,6 @@ const controllers = {};
 
 const getExpenses = async (req, res) => {
     const {id} = req.params;
-    console.log(id);
     const result = await expensesModel.getExpensesFromUser(id);
     res.json({message: 'Expenses retrieved succesfully', body: {expenses: result}});
 }
