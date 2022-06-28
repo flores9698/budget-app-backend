@@ -7,6 +7,7 @@ const guard = require('./src/guard/guard');
 const usersRouter = require('./src/routes/users.routes');
 const banksRouter = require('./src/routes/bank.routes')
 const bankAccountsRouter = require('./src/routes/bank_accounts.routes');
+const expensesRouter = require('./src/routes/expenses.routes');
 
 const {urlencoded} = require("express");
 
@@ -26,9 +27,11 @@ app.use(express.json());
 
 
 app.use('/users', usersRouter);
+app.use('/expenses', expensesRouter);
 app.use(guard);
 app.use('/bank_accounts', bankAccountsRouter);
 app.use('/banks', banksRouter);
+
 
 
 
