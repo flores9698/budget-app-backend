@@ -11,5 +11,6 @@ router.post('/', bankAccountsController.createBankAccount )
 router.patch('/:id', bankAccountsController.updateBankAccount )
 router.delete('/:id', bankAccountsController.deleteBankAccount )
 router.patch('/:id/balance', bankAccountsController.updateBankAccountBalance )
+router.patch('/:id/name', bankAccountsController.updateBankAccountName )
 
 module.exports = router

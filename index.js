@@ -5,14 +5,14 @@ const cookies = require('cookie-parser');
 const guard = require('./src/guard/guard');
 //Routes
 const usersRouter = require('./src/routes/users.routes');
+const banksRouter = require('./src/routes/bank.routes')
 const bankAccountsRouter = require('./src/routes/bank_accounts.routes');
 
 const {urlencoded} = require("express");
 
 const corsOptions ={
-    origin:'http://localhost:3000', 
-    credentials:true,            //access-control-allow-credentials:true
-    optionSuccessStatus:200
+    origin:'*',
+    credentials:true,
   }
 
 
@@ -28,6 +28,9 @@ app.use(express.json());
 app.use('/users', usersRouter);
 app.use(guard);
 app.use('/bank_accounts', bankAccountsRouter);
+app.use('/banks', banksRouter);
+
+
 
 
 

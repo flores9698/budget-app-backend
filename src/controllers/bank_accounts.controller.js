@@ -29,6 +29,19 @@ const createBankAccount = async (req, res) => {
     });
 }
 
+const updateBankAccountName = async (req, res) => {
+    const { id } = req.params;
+    const { name } = req.body;
+    const result = await pool.query('UPDATE bank_accounts SET account_name = $1 WHERE id = $2', [name, id]);
+    res.json({
+        message: 'Bank Account name updated successfully',
+        body: {
+            bank_account: { name }
+        }
+    });
+}
+
+
 const updateBankAccount = async (req, res) => {
     const { id } = req.params;
     const { name,balance,user_id } = req.body;
@@ -55,5 +68,6 @@ controllers.createBankAccount = createBankAccount;
 controllers.updateBankAccount = updateBankAccount;
 controllers.updateBankAccountBalance = updateBankAccountBalance;
 controllers.deleteBankAccount = deleteBankAccount;
+controllers.updateBankAccountName = updateBankAccountName;
 
 module.exports = controllers;

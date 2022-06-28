@@ -1,0 +1,33 @@
+{
+  "name": "budget-app-backend",
+  "version": "1.0.0",
+  "description": "Backend for Budget App",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/flores9698/budget-app-backend.git"
+  },
+  "author": "Saul Flores",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/flores9698/budget-app-backend/issues"
+  },
+  "homepage": "https://github.com/flores9698/budget-app-backend#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.0",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "jsonwebtoken": "^8.5.1",
+    "nodemon": "^2.0.16",
+    "passport": "^0.6.0",
+    "passport-local": "^1.0.0",
+    "pg": "^8.7.3"
+  }
+}

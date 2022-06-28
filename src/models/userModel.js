@@ -6,7 +6,7 @@ const registerUser = async ({ email, password, first_name, last_name }) => {
     const hash = bcrypt.hashSync(password, 8);
     const query = `INSERT INTO users (email, password, name, last_name) VALUES ('${email}', '${hash}', '${first_name}', '${last_name}')`;
     await pool.query(query);
-    result = await pool.query('SELECT * FROM users WHERE email = $1', [email]);
+    result = await pool.query('SELECT token,email,name,last_name,id FROM users WHERE email = $1', [email]);
     return result.rows[0];
 }
 
