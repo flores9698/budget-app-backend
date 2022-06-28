@@ -9,11 +9,11 @@ const getExpensesFromUser = async (userId) => {
 }
 
 
-const addExpense = async (expense_name,user_id,date_added,category_id ) => {
+const addExpense = async (expense_name,user_id,date_added,category_id,amount,bank_account_id) => {
    
-    query = `INSERT INTO expenses (expense_name,user_id,date_added,category_id) VALUES ('${expense_name}',${user_id},'${date_added}',${category_id})`;
+    query = `INSERT INTO expenses (expense_name,user_id,date_added,category_id,amount,bank_account_id ) VALUES ('${expense_name}',${user_id},'${date_added}',${category_id},${amount},${bank_account_id})`;
     result = await pool.query(query);
-    result = await pool.query('SELECT * from expenses where user_id = $1', [user_id]);
+    result = await pool.query("select * from expenses inner join categories on expenses.category_id = categories.id where expenses.user_id  = $1 or expenses.user_id =25", [user_id]);
     return result.rows;
 }
 
