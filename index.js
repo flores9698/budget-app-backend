@@ -27,10 +27,10 @@ app.use(express.json());
 
 
 app.use('/users', usersRouter);
-app.use('/expenses', expensesRouter);
 app.use(guard);
 app.use('/bank_accounts', bankAccountsRouter);
 app.use('/banks', banksRouter);
+app.use('/expenses', expensesRouter);
 
 
 

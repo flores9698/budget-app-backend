@@ -4,7 +4,8 @@ const router = express.Router()
 //Controllers
 const expensesController = require('../controllers/expenses.controller')
 
-router.get('/', expensesController.getExpenses )
+router.get('/:id', expensesController.getExpenses )
+router.post('/', expensesController.AddExpense )
 
 
 module.exports = router
