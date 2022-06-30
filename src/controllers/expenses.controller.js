@@ -10,8 +10,8 @@ const getExpenses = async (req, res) => {
 }
 
 const AddExpense = async (req, res) => {
-    const { expense_name,user_id,date_added,category_id,amount,bank_account_id } = req.body;
-    const result = await expensesModel.addExpense(expense_name,user_id,date_added,category_id,amount,bank_account_id );
+    const { expense_name,user_id,date_added,category_id,amount,bank_account_id,income } = req.body;
+    const result = await expensesModel.addExpense(expense_name,user_id,date_added,category_id,amount,bank_account_id,income );
     res.json({message: 'Expenses retrieved succesfully', body: {expenses: result}});
 }
 
