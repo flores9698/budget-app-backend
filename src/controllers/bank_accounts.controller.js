@@ -16,7 +16,7 @@ const getBankAccount = async (req, res) => {
                  bk.id, account_name,name,last_name,balance FROM bank_accounts as bk 
                  inner join users as u
                  on bk.user_id = u.id
-                 WHERE u.user_id = ${id}`;
+                 WHERE user_id = ${id}`;
   const result = await pool.query(query);
   res
     .status(200)
