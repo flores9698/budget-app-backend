@@ -28,11 +28,16 @@ const getBankAccount = async (req, res) => {
 
 const transferMoney = async (req, res) => {
   const { from_account, to_account, amount } = req.body;
-  const query = `UPDATE bank_accounts SET balance = balance - ${amount} WHERE id = ${from_account}`;
-  const result = await pool.query(query);
+  let query = `UPDATE bank_accounts SET balance = balance - ${amount} WHERE id = ${from_account}`;
+  let result = await pool.query(query);
   query = `UPDATE bank_accounts SET balance = balance + ${amount} WHERE id = ${to_account}`;
   result = await pool.query(query);
-  res.json({ message: "Money transferred successfully", body: {} });
+  res.json({ message: "Money transferred successfully", body: {
+    from_account,
+    to_account,
+    amount
+    
+  } });
 };
 
 const createBankAccount = async (req, res) => {
