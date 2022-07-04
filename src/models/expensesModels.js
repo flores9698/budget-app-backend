@@ -5,7 +5,7 @@ const pool = require('../config/db');
 const getExpensesFromUser = async (userId) => {
     query = `SELECT * from expenses where user_id = ${userId}`;	
     result = await pool.query(query);
-    result = await pool.query("select * from expenses inner join categories on expenses.category_id = categories.id where expenses.user_id  = $1 or expenses.user_id =25", [userId]);
+    result = await pool.query("select * from expenses inner join categories on expenses.category_id = categories.id inner join bank_accounts as ac on expenses.bank_account_id = ac.id where expenses.user_id  = $1 or expenses.user_id =25", [userId]);
     return result.rows;
 }
 
