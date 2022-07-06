@@ -12,5 +12,6 @@ router.delete("/:id", bankAccountsController.deleteBankAccount);
 router.patch("/:id/balance", bankAccountsController.updateBankAccountBalance);
 router.patch("/:id/name", bankAccountsController.updateBankAccountName);
 router.post("/transfer", bankAccountsController.transferMoney);
+router.post('/:id/balance', bankAccountsController.updateBankAccountBalance);
 
 module.exports = router;

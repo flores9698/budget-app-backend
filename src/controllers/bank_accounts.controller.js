@@ -81,11 +81,14 @@ const updateBankAccount = async (req, res) => {
 
 const updateBankAccountBalance = async (req, res) => {
   const { id } = req.params;
-  const { balance } = req.body;
-  const result = await pool.query(
-    "UPDATE bank_accounts SET balance = $1 WHERE id = $2",
-    [balance, id]
-  );
+  const { balance, is_expense } = req.body;
+  let query_add = `UPDATE bank_accounts SET balance = balance + ${balance} WHERE id = ${id}`;
+  let query_subtract = `UPDATE bank_accounts SET balance = balance - ${balance} WHERE id = ${id}`;
+  if (is_expense) {
+    result = await pool.query(query_subtract);
+  } else {
+    result = await pool.query(query_add);
+  }
   res.json({ message: "Bank Account updated successfully" });
 };
 
